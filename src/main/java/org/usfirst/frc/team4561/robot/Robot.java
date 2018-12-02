@@ -60,9 +60,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		//CameraServer.getInstance().startAutomaticCapture();
-		SmartDashboard.putData("Drive Straight one foot", new AutoDriveStraight());
-		SmartDashboard.putData("Gyro TurnRight90 ", new TurnRight90());
-		SmartDashboard.putData("FirstMPAutoTest ", new FirstMPAutoTest());
+		//SmartDashboard.putData("Drive Straight one foot", new AutoDriveStraight());
+		//SmartDashboard.putData("Gyro TurnRight90 ", new TurnRight90());
+		//SmartDashboard.putData("FirstMPAutoTest ", new FirstMPAutoTest());
 		
 	}
 
@@ -87,8 +87,7 @@ public class Robot extends IterativeRobot {
 	}
 		
 	public void robotPeriodic(){
-		motionProfileRunner.control();
-    	if (RobotMap.DRIVETRAIN_DEBUG){
+    	if (RobotMap.DRIVETRAIN_DEBUG ){
 		SmartDashboard.putNumber("Heartbeat <3 2", Math.random());
 	    	SmartDashboard.putNumber("DriveTrain/Left Speed", Robot.driveTrain.getLeftSpeed());
 	    	SmartDashboard.putNumber("DriveTrain/Right Speed", Robot.driveTrain.getRightSpeed());
@@ -115,6 +114,7 @@ public class Robot extends IterativeRobot {
 	    	 SmartDashboard.putNumber("Pressure: ", gyro.getBarometricPressure());
 	    	 SmartDashboard.putNumber("Temperature: ", gyro.getTemperature()); 
 
+		motionProfileRunner.control();
    	}
 
     	

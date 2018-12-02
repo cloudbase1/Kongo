@@ -74,7 +74,7 @@ public class RobotMap {
 //  Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
 	// TODO EAP these parameters up to MAX_JERK need to be adjusted for Kongo
-	public static final double WHEELBASE_WIDTH_SWITCH = 2.55;//2.25; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
+	public static final double WHEELBASE_WIDTH_SWITCH = 1.375;//2.25; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
 	public static final double WHEELBASE_WIDTH_SCALE = 2.55;//2.7;
 	// EAP TODO temp public static final double MAX_VELOCITY = 2; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
 	public static final double MAX_VELOCITY = 0.5; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear

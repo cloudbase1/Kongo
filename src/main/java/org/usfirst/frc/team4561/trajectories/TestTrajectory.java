@@ -18,7 +18,8 @@ public class TestTrajectory extends Path {
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
     			new Waypoint(0, 0, 0),
-    			new Waypoint(4, 4, Pathfinder.d2r(90)),
+    			new Waypoint(1, 0, 0),
+    			//new Waypoint(1, 1, Pathfinder.d2r(90)),
 //    			new Waypoint(8, 8, 0)
 //    			new Waypoint(0, 0, 0),
 //    			new Waypoint(8, 0, 0),
@@ -26,8 +27,7 @@ public class TestTrajectory extends Path {
     	reverse = false;
     	generateTrajectoriesAndArrays();
 	
-		// EAP take a look at the main trajectory segments
-		this.printMainTrajectory();
+		
     	/* To print out points along trajectory...
 	    	for (int i = 0; i < left.length(); i++) {
 				Trajectory.Segment seg = trajectory.get(i);

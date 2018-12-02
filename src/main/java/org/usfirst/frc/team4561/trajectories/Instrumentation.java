@@ -38,7 +38,7 @@ public class Instrumentation {
 	}
 
 	public static void OnNoProgress() {
-		//System.out.format("%s\n", "NOPROGRESS");
+		System.out.format("%s\n", "NOPROGRESS");
 	}
 
 	static private String StrOutputEnable(SetValueMotionProfile sv) {
