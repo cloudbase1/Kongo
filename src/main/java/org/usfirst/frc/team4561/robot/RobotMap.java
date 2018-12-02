@@ -76,7 +76,8 @@ public class RobotMap {
 	// TODO EAP these parameters up to MAX_JERK need to be adjusted for Kongo
 	public static final double WHEELBASE_WIDTH_SWITCH = 2.55;//2.25; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
 	public static final double WHEELBASE_WIDTH_SCALE = 2.55;//2.7;
-	public static final double MAX_VELOCITY = 2; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
+	// EAP TODO temp public static final double MAX_VELOCITY = 2; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
+	public static final double MAX_VELOCITY = 0.5; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
 	public static final double MAX_ACCELERATION = 1; // ft/s/s: 6 for Delta
 	public static final double MAX_JERK = 60.0; // ft/s/s/s
 

@@ -4,7 +4,10 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+/* EAP Kongo bases on 2018 */
+/* 29 Nov 18 Adding changes needed for MPR only 
+* We will not use MPOR yet
+*/
 
 package org.usfirst.frc.team4561.robot;
 
@@ -20,12 +23,11 @@ import org.usfirst.frc.team4561.robot.automodes.*;
 import org.usfirst.frc.team4561.robot.commands.*;
 import org.usfirst.frc.team4561.robot.subsystems.*;
 import org.usfirst.frc.team4561.trajectories.TestTrajectory;
-import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 import org.usfirst.frc.team4561.trajectories.Path;
 // EAP Gyro import Change when I have a SPI bus model.
 import org.usfirst.frc.team4561.robot.ADIS16448_IMU;
 
-
+import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 
 
 /**
@@ -72,6 +74,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		driveTrain.stop();
+		// EAP The 2018 code only resets the MPOR but we may want to reset MPR here
+		//motionProfileRunner.reset();
 	}
 
 	@Override
@@ -83,8 +87,9 @@ public class Robot extends IterativeRobot {
 	}
 		
 	public void robotPeriodic(){
+		motionProfileRunner.control();
     	if (RobotMap.DRIVETRAIN_DEBUG){
-		SmartDashboard.putNumber("Heartbeat <3", Math.random());
+		SmartDashboard.putNumber("Heartbeat <3 2", Math.random());
 	    	SmartDashboard.putNumber("DriveTrain/Left Speed", Robot.driveTrain.getLeftSpeed());
 	    	SmartDashboard.putNumber("DriveTrain/Right Speed", Robot.driveTrain.getRightSpeed());
 	    	SmartDashboard.putNumber("DriveTrain/Left Position", Robot.driveTrain.getLeftPos());
@@ -135,19 +140,27 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		motionProfileRunner.control();
+		gyro.reset();
 		driveTrain.resetEncoders();
-		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
+		//int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
+		// TDB EAP Hard code auto for now
+		int auto = 2;
 		switch (auto){
 		case 0:
+    	    System.out.println("AutonomousCommand is null");
 			autonomousCommand = null;
 			break;
 		case 1:
+    	    System.out.println("Selecting AutoDriveStraight");
 			autonomousCommand = new AutoDriveStraight();
 			break;
 		case 2:
+    	    System.out.println("Selecting FirstMPAutoTest");
 			autonomousCommand = new FirstMPAutoTest();
 			break;
 		case 3:
+    	    System.out.println("Selecting TurnGyro 90");
 			autonomousCommand = new TurnRight90();
 			break;
 		case 4:
@@ -173,7 +186,10 @@ public class Robot extends IterativeRobot {
 			break;
 
 		}
-
+        // schedule the autonomous command (example)
+        if (autonomousCommand != null) {
+	       autonomousCommand.start();
+        }
 
 	}
 
@@ -183,6 +199,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 	 Scheduler.getInstance().run();
+ 	 motionProfileRunner.control();
 	}
 
 	@SuppressWarnings("unused")
@@ -205,6 +222,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		motionProfileRunner.control();
 		
 	}
 

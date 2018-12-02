@@ -1,4 +1,5 @@
-/* Example logic for firing and managing motion profiles.
+/** 
+ * Example logic for firing and managing motion profiles.
  * This example sends MPs, waits for them to finish
  * Although this code uses a CANTalon, nowhere in this module do we changeMode() or call set() to change the output.
  * This is done in Robot.java to demonstrate how to change control modes on the fly.
@@ -379,7 +380,7 @@ public class MotionProfileRunner {
 		/* did we get an underrun condition since last time we checked ? */
 		if (leftStatus.hasUnderrun) {
 			/* better log it so we know about it */
-			// TODO EAP Add this later Instrumentation.OnUnderrun();
+			Instrumentation.OnUnderrun();
 			/*
 			 * clear the error. This flag does not auto clear, this way 
 			 * we never miss logging it.

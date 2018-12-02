@@ -26,7 +26,9 @@ public class RunTrajectory extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
+    	System.out.println("********************************************* ");
     	System.out.println("Starting trajectory: " + trajectory.toString());
+    	System.out.println("********************************************* ");
     	Robot.motionProfileRunner.setCurrentTrajectory(trajectory);
 		SetValueMotionProfile setOutput = Robot.motionProfileRunner.getSetValue();
 		Robot.driveTrain.left.set(ControlMode.MotionProfile, setOutput.value);
@@ -44,12 +46,17 @@ public class RunTrajectory extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	System.out.println("********************************************* ");
+    	System.out.println("Checking isFinished for trajectory: " + trajectory.toString());
+    	System.out.println("********************************************* ");
         return Robot.motionProfileRunner.getSetValue() == SetValueMotionProfile.Disable && isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("********************************************* ");
     	System.out.println("Ending trajectory: " + trajectory.toString());
+    	System.out.println("********************************************* ");
     	Robot.motionProfileRunner.reset();
     	Robot.driveTrain.resetEncoders();
     }

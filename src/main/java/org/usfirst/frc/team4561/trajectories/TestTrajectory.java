@@ -25,17 +25,17 @@ public class TestTrajectory extends Path {
     	};
     	reverse = false;
     	generateTrajectoriesAndArrays();
-    	
+	
+		// EAP take a look at the main trajectory segments
+		this.printMainTrajectory();
     	/* To print out points along trajectory...
-    	 
 	    	for (int i = 0; i < left.length(); i++) {
-	    		Trajectory.Segment seg = trajectory.get(i);
+				Trajectory.Segment seg = trajectory.get(i);
 	    
 	    		System.out.printf("%f,%f,%f,%f,%f,%f,%f,%f\n", 
 	        		seg.dt, seg.x, seg.y, seg.position, seg.velocity, 
 	            	seg.acceleration, seg.jerk, seg.heading);
 			}
-	
-    	 */
+          */	
     }
 }
