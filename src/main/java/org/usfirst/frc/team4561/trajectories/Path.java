@@ -21,14 +21,15 @@ public class Path {
     double[][] leftArray;
     double[][] rightArray;
     boolean reverse;
-    double wheelbase = RobotMap.WHEELBASE_WIDTH_SWITCH;
+    double wheelbase = RobotMap.WHEELBASE_WIDTH;
 	
     public void generateTrajectoriesAndArrays() {
     	trajectory = Pathfinder.generate(points, config);
-    	// Wheelbase Width (feet)
-    	double wheelbaseWidth = RobotMap.UNITS_PER_10_ROBOT_REVOLUTIONS / 10.0;
-    	wheelbaseWidth /= Math.PI; // Diameter in units
-    	wheelbaseWidth = OI.units2Ft(wheelbaseWidth);
+		// Wheelbase Width (feet)
+		// EAP 3 Dec 18 I don't see this being used t all comment out
+    	// EAP double wheelbaseWidth = RobotMap.UNITS_PER_10_ROBOT_REVOLUTIONS / 10.0;
+    	// EAP wheelbaseWidth /= Math.PI; // Diameter in units
+    	// EAP wheelbaseWidth = OI.units2Ft(wheelbaseWidth);
     	modifier = new TankModifier(trajectory).modify(wheelbase); // 1.865 (1.375 for kongo)
     	// Do something with the new Trajectories...
     	left = modifier.getLeftTrajectory();
@@ -37,13 +38,15 @@ public class Path {
     	for (int i = 0; i < left.length(); i++) {
     		Trajectory.Segment seg = left.get(i);
     		double[] point = {seg.position, seg.velocity, seg.dt};
-    		leftArray[i] = point;
+			leftArray[i] = point;
+			System.out.println("EAP left seg.velocity = " + seg.velocity );
     	}
     	rightArray = new double[right.length()][2];
     	for (int i = 0; i < right.length(); i++) {
     		Trajectory.Segment seg = right.get(i);
     		double[] point = {seg.position, seg.velocity, seg.dt};
     		rightArray[i] = point;
+			System.out.println("EAP right seg.velocity = " + seg.velocity );
     	}
     }
     

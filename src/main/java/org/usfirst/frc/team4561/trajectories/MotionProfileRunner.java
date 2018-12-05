@@ -25,6 +25,7 @@ package org.usfirst.frc.team4561.trajectories;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -255,7 +256,7 @@ public class MotionProfileRunner {
 				 * something is wrong. Talon is not present, unplugged, breaker
 				 * tripped
 				 */
-				// TODO EAP ADD THIS LATER Instrumentation.OnNoProgress();
+				Instrumentation.OnNoProgress();
 			} else {
 				--loopTimeout;
 			}
@@ -403,10 +404,14 @@ public class MotionProfileRunner {
 		for (int i = 0; i < totalCnt; ++i) {
 			double leftPositionRaw = leftProfile[i][0]; // ft
 			double leftVelocityRaw = leftProfile[i][1]; // ft/sec
+
 			/* for each point, fill our structure and pass it to API */
+			//EAP TODO Follow all velocity and check units. Convert using metric
 			leftPoint.position = OI.ft2Units(leftPositionRaw);
-			leftPoint.velocity = OI.fps2UnitsPerRev(leftVelocityRaw);
-			
+		    leftPoint.velocity = OI.fps2UnitsPerRev(leftVelocityRaw);
+			//EAP Dump velocity point
+			System.out.println("EAP TestTrajectory:velocity = " + leftPoint.velocity);
+
 			// SNEAKY PHOENIX CRAP:
 			// This TrajectoryDuration is only allowed to be 0, 5, 10, 20, 30, 40, 50, or 100.
 			// Any other value will return 100.
@@ -426,7 +431,7 @@ public class MotionProfileRunner {
 			double rightPositionRaw = rightProfile[i][0]; // ft
 			double rightVelocityRaw = rightProfile[i][1]; // ft/sec
 			/* for each point, fill our structure and pass it to API */
-			
+			//EAP TODO Follow all velocity and check units. Convert using metric
 			rightPoint.position = OI.ft2Units(rightPositionRaw);
 			rightPoint.velocity = OI.fps2UnitsPerRev(rightVelocityRaw);
 			

@@ -16,7 +16,7 @@ public class FirstMPAutoTest extends CommandGroup {
 		double delay = 1;// TBD EAP HArd code for now Robot.oi.getDashboardDelaySlider();
         addSequential(new WaitCommand(delay));
         // EAP RunTrajectory sinks the MPR and talon states
-    	System.out.println("Calling RunTrajectory and Passing TestTrajectory");
+		System.out.println("Calling RunTrajectory and Passing TestTrajectory");
 		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.TestTrajectory
 				));
 	}

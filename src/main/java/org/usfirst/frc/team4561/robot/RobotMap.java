@@ -68,18 +68,25 @@ public class RobotMap {
 // EAP There should be an explanation as to how  the drive train circumference is measured.
 // This is most likely the circumference of the robot as it pivots on one wheel. This would
 // mean, at least for Kongo, the wheel base diameter X pi This should also state units.
-	public static final double DRIVETRAIN_CIRCUMFERENCE = 88;//TODO EAP Change for Kongo
+	public static final double DRIVETRAIN_CIRCUMFERENCE = 18.84; // TODO EAP Change for Kongo
 	public static final double CONTROLLER_DEADZONE = 0.1;
 	
 //  Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
 	// TODO EAP these parameters up to MAX_JERK need to be adjusted for Kongo
-	public static final double WHEELBASE_WIDTH_SWITCH = 1.375;//2.25; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
-	public static final double WHEELBASE_WIDTH_SCALE = 2.55;//2.7;
+	//EAP 4 Dec 18 convert feet top meters for Kongo
+	// Old code public static final double WHEELBASE_WIDTH = 1.375;//2.25; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
+    public static final double WHEELBASE_WIDTH = 0.4191; // in meters
 	// EAP TODO temp public static final double MAX_VELOCITY = 2; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
-	public static final double MAX_VELOCITY = 0.5; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
-	public static final double MAX_ACCELERATION = 1; // ft/s/s: 6 for Delta
-	public static final double MAX_JERK = 60.0; // ft/s/s/s
+	// EAP 4 Dec 18 convert to meters
+	//public static final double MAX_VELOCITY = 4.0; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
+	public static final double MAX_VELOCITY = 1.2192;// meters/sec
+	// EAP 4 Dec 18 convert to meters 
+	//public static final double MAX_ACCELERATION = 1; // ft/s/s: 6 for Delta
+	public static final double MAX_ACCELERATION = 0.3048; // ft/s/s: 6 for Delta
+	// EAP 4 Dec 18 convert to meters.
+	//public static final double MAX_JERK = 60; // ft/s/s/s
+	public static final double MAX_JERK = 18.288; // meters/s/s/s 
 
 	// EAP note right side is 
 	public static final boolean LEFT_SIDE_INVERTED = true; 
@@ -108,7 +115,7 @@ public class RobotMap {
 	public static double DRIVETRAIN_KP = 0.3;
 	public static double DRIVETRAIN_KI = 0.05;
 	public static double DRIVETRAIN_KD = 0.03;
-	public static double DRIVETRAIN_KF = 0.149;
+	public static double DRIVETRAIN_KF = 0.149; 
 	// EAP Integral Zone The motor control profile contains Integral Zone (I Zone), 
 	// which (when nonzero), is the maximum error where Integral Accumulation will occur
 	// during a closed-loop Mode. If the Closed-loop error is outside of the I Zone,
@@ -120,6 +127,7 @@ public class RobotMap {
 	// EAP All speeds will be set as a % of an absolute MAX_SPEED
 	// in order to set both int fields and double fields we use the Double Class
 	// rather than just a variable double. This way we can convert it as needed.
+	// TODO EAP verify units for all the below
 	public static Double MAX_SPEED = 3000.0;
 	// Set motion cruise velocity in RPM must be an int
 	public static Double MOTION_CRUISE_VELOCITY = MAX_SPEED * 0.5;
@@ -131,12 +139,14 @@ public class RobotMap {
 	
 	// Used for MotionProfileOnboardRunner
 	// TODO EAP All these parameters need adjusting for Kongo
-		public static final double WHEEL_DIAMETER = 5; //inches: 5 for Delta, 6 for Kongo, 3.5 for Janderson
+		public static final double WHEEL_DIAMETER = 6; //inches: 5 for Delta, 6 for Kongo, 3.5 for Janderson
 		public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 		public static final int UNITS_PER_REVOLUTION = (int)((RobotMap.UNITS_PER_10_FEET / 10.0 * (WHEEL_CIRCUMFERENCE / 12.0)) * 1.0); //encoder ticks: 7659 for Delta, 8192 for Kongo, 3700 for Janderson
 		public static final double UNITS_PER_10_ROBOT_REVOLUTIONS = 410000; // 410000 for Delta, 274700 for Janderson (currently unused), using WHEELBASE_WIDTH instead
 		public static final double UNITS_PER_10_FEET = 59500; // 59500 for Delta, 40500 for Janderson
-		public static final double MAX_UNITS_PER_100MS = 2500 * 1.505; // 9900 for Delta, 4011 for Janderson, 6450 for Kongo
+		// EAP Changed to my calculations and measurements on kongo
+		public static final double MAX_UNITS_PER_100MS = 6840; // 9900 for Delta, 4011 for Janderson, 6450 for Kongo EAP Kogo 6840
+		//public static final double MAX_UNITS_PER_100MS = 2500 * 1.505; // 9900 for Delta, 4011 for Janderson, 6450 for Kongo
 		public static final double MAX_UNITS_PER_SECOND = MAX_UNITS_PER_100MS * 10;
 		public static final double MAX_REVOLUTIONS_PER_SECOND = MAX_UNITS_PER_SECOND / UNITS_PER_REVOLUTION;
 		public static final double MAX_INCHES_PER_SECOND = MAX_REVOLUTIONS_PER_SECOND * WHEEL_DIAMETER * Math.PI;

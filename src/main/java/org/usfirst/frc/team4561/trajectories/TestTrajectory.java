@@ -24,7 +24,8 @@ public class TestTrajectory extends Path {
 //    			new Waypoint(0, 0, 0),
 //    			new Waypoint(8, 0, 0),
     	};
-    	reverse = false;
+		reverse = false;
+		this.config.max_velocity = 4.0;
     	generateTrajectoriesAndArrays();
 	
 		

@@ -16,7 +16,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 
 public class DriveTrainPID extends Subsystem {
- 
 	double goalL;
 	double goalR;
 	//Control Modes
@@ -138,7 +137,7 @@ public class DriveTrainPID extends Subsystem {
 		// leftMotorOutput = 0.0 rightMotorOutput = 0.5
 		//----------------------------------------------
 		// xSpeed = -0.5 zRotation = 0.5
-		// leftMotorOutput = 0.0 rigthMotorOutput = 0.5
+		// leftMotorOutput = 0.0 rightMotorOutput = 0.5
 		//----------------------------------------------
 		// xSpeed = -0.5 zRotation = -0.5 
 		// leftMotorOutput = 0.5 rightMotorOutput = 0.0

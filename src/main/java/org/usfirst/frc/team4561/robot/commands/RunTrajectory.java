@@ -33,7 +33,8 @@ public class RunTrajectory extends Command {
 		SetValueMotionProfile setOutput = Robot.motionProfileRunner.getSetValue();
 		Robot.driveTrain.left.set(ControlMode.MotionProfile, setOutput.value);
 		Robot.driveTrain.right.set(ControlMode.MotionProfile, setOutput.value);
-    	Robot.motionProfileRunner.startMotionProfile();
+		Robot.motionProfileRunner.startMotionProfile();
+		
     	setTimeout(0.25);
     }
 
