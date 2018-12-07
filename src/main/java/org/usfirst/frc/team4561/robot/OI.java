@@ -8,11 +8,11 @@
 package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
+//import edu.wpi.first.wpilibj.buttons.JoystickButton;
+//import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4561.robot.commands.*;
+//import org.usfirst.frc.team4561.robot.commands.*;
 //import org.usfirst.frc.team4561.robot.triggers.*;
 
 /**
@@ -24,9 +24,6 @@ import org.usfirst.frc.team4561.robot.commands.*;
 public class OI {
 	private static Joystick leftStick = new Joystick (RobotMap.LEFT_JOYSTICK_PORT);
 	private static Joystick rightStick = new Joystick (RobotMap.RIGHT_JOYSTICK_PORT);
-	
-	//private static JoystickButton controllerIntakeLeft = new JoystickButton(controller, RobotMap.CONTROLLER_LEFT_INTAKE);
-	//private static JoystickButton controllerIntakeRight = new JoystickButton(controller, RobotMap.CONTROLLER_RIGHT_INTAKE);
 	
 	
 	public OI () {
@@ -98,44 +95,45 @@ public class OI {
 
 /// TODO EAP Is OI the proper place for these functions? Copies from 2018 OI
 	/**
-	 * Converts feet to encoder units.
+	 * Converts meters to encoder units.
+	 * So the users enters meters and gets back the number of 
+	 * native units to send to the talons.
 	 * Uses {@value #WHEEL_DIAMETER}" for wheel diameter and {@value #UNITS_PER_REVOLUTION} for encoder units per revolution.
-	 * @param feet
+	 * WHEEL_DIAMETER is assumed to be in meeters
+	 * @param meter
 	 * @return encoder units
 	 */
-	public static double ft2Units(double feet) {
-		feet *= 12; // inches
-		feet /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions
-		feet *= RobotMap.UNITS_PER_REVOLUTION; // Units
-		return feet;
+	public static double meter2Units(double meter) {
+		meter /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions
+		meter *= RobotMap.UNITS_PER_REVOLUTION; // Units
+		return meter;
 	}
 
 	/**
-	 * Converts feet to encoder units.
+	 * Converts encoder units into meters.
+	 * The user enters the number of talon native units 
+	 * and gets back the number of meters that represents.
 	 * Uses {@value #WHEEL_DIAMETER}" for wheel diameter and {@value #UNITS_PER_REVOLUTION} for encoder units per revolution.
-	 * @param feet
+	 * @param meter
 	 * @return encoder units
 	 */
-	public static double units2Ft(double units) {
+	public static double units2meters(double units) {
 		units /= RobotMap.UNITS_PER_REVOLUTION; // revolutions
 		units *= RobotMap.WHEEL_DIAMETER * Math.PI; // inches
-		units /= 12; // feet
-		
 		return units;
 	}
 	
 	/**
-	 * Converts feet per second to encoder units per 100 milliseconds.
+	 * Converts meters per second to encoder units per 100 milliseconds.
 	 * Uses {@value #WHEEL_DIAMETER}" for wheel diameter and {@value #UNITS_PER_REVOLUTION} for encoder units per revolution.
-	 * @param fps feet per second
+	 * @param mps  = meters per second
 	 * @return encoder units per 100 milliseconds
 	 */
-	public static double fps2UnitsPerRev(double fps) {
-		fps /= 10; // ft/100ms
-		fps *= 12; // in/100ms
-		fps /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions/100ms
-		fps *= RobotMap.UNITS_PER_REVOLUTION; // Units/100ms
-		return fps;
+	public static double mps2UnitsPerRev(double mps) {
+		mps /= 10; // meters/100ms
+		mps /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions/100ms
+		mps *= RobotMap.UNITS_PER_REVOLUTION; // Units/100ms
+		return mps;
 	}
 	
 

@@ -1,6 +1,6 @@
 package org.usfirst.frc.team4561.trajectories;
 
-import org.usfirst.frc.team4561.robot.OI;
+//import org.usfirst.frc.team4561.robot.OI;
 import org.usfirst.frc.team4561.robot.RobotMap;
 
 import jaci.pathfinder.Pathfinder;

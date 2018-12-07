@@ -60,9 +60,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		//CameraServer.getInstance().startAutomaticCapture();
-		//SmartDashboard.putData("Drive Straight one foot", new AutoDriveStraight());
-		//SmartDashboard.putData("Gyro TurnRight90 ", new TurnRight90());
-		//SmartDashboard.putData("FirstMPAutoTest ", new FirstMPAutoTest());
+		SmartDashboard.putData("Drive Straight one meter", new AutoDriveStraight());
+		SmartDashboard.putData("Gyro TurnRight90 ", new TurnRight90());
+		SmartDashboard.putData("FirstMPAutoTest ", new FirstMPAutoTest());
 		
 	}
 
@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		driveTrain.stop();
 		// EAP The 2018 code only resets the MPOR but we may want to reset MPR here
-		//motionProfileRunner.reset();
+		motionProfileRunner.reset();
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class Robot extends IterativeRobot {
 		
 	public void robotPeriodic(){
     	if (RobotMap.DRIVETRAIN_DEBUG ){
-		SmartDashboard.putNumber("Heartbeat <3 2", Math.random());
+		SmartDashboard.putNumber("Heartbeat <3 ", Math.random());
 	    	SmartDashboard.putNumber("DriveTrain/Left Speed", Robot.driveTrain.getLeftSpeed());
 	    	SmartDashboard.putNumber("DriveTrain/Right Speed", Robot.driveTrain.getRightSpeed());
 	    	SmartDashboard.putNumber("DriveTrain/Left Position", Robot.driveTrain.getLeftPos());
@@ -113,7 +113,7 @@ public class Robot extends IterativeRobot {
 	    	    
 	    	 SmartDashboard.putNumber("Pressure: ", gyro.getBarometricPressure());
 	    	 SmartDashboard.putNumber("Temperature: ", gyro.getTemperature()); 
-
+        // EAP Needs to be called every cycle
 		motionProfileRunner.control();
    	}
 
@@ -140,9 +140,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		motionProfileRunner.control();
 		gyro.reset();
 		driveTrain.resetEncoders();
+		motionProfileRunner.control();
 		//int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
 		// TDB EAP Hard code auto for now
 		int auto = 2;
@@ -163,28 +163,6 @@ public class Robot extends IterativeRobot {
     	    System.out.println("Selecting TurnGyro 90");
 			autonomousCommand = new TurnRight90();
 			break;
-		case 4:
-			//autonomousCommand = new AutoLeftScaleProfiling();
-			break;
-		case 5:
-			//autonomousCommand = new AutoTwoSwitchCube();
-			break;
-		case 6:
-			//autonomousCommand = new AutoMidSwitchOnboardProfiling();
-			break;
-		case 7:
-			//autonomousCommand = new AutoLeftScaleOnboardProfiling();
-			break;
-		case 8:
-			//autonomousCommand = new AutoRightScaleOnboardProfiling();
-			break;
-		case 9:
-			//autonomousCommand = new AutoTestProfiling();
-			break;
-		case 10:
-			//autonomousCommand = new AutoTestOnboardProfiling();
-			break;
-
 		}
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {

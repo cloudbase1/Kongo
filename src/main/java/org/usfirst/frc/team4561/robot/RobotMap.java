@@ -36,7 +36,7 @@ public class RobotMap {
 	// public static int rightMotor = 2;
 	
 	//Left Motor Ports  EAP Port side motor
-	public static final int LEFT_MOTOR_PORT = 7; // TBD
+	public static final int LEFT_MOTOR_PORT = 7; 
 	
 	//Right Motor Ports  EAP Starboard side motor
 	public static final int RIGHT_MOTOR_PORT = 8;
@@ -51,10 +51,12 @@ public class RobotMap {
 		public static boolean DRIVETRAIN_PID = true;
 
    // Variables used to tune velocity PID
-  // For Kongo max speed is 6840 u/100ms
-  // This means max speed 12v is at Velocity set in u/100ms = 6840
-  // Max RPM for Kongo is 12 volts @ 
-	public static final 	boolean TUNE_VEL_PID = false;
+   // EAP TODO recheck this number to be sure it represents
+   // 12 volt max power since we set the max power to 0.5 above.
+   // For Kongo max speed is 6840 u/100ms
+   // This is 68400 units per second
+   // This means max speed 12v is at Velocity set in u/100ms = 6840
+	public static final boolean TUNE_VEL_PID = false;
 	// Make 3000 the max speed to give Batt and motor some overhead and safety
 	public static final double TUNE_VEL_SPEED = -3000; // neg = forward
 	
@@ -65,27 +67,20 @@ public class RobotMap {
 	@SuppressWarnings("unused")
 	public static final boolean DRIVETRAIN_DEBUG = true || MASTER_DEBUG;
 
-// EAP There should be an explanation as to how  the drive train circumference is measured.
+// EAP TODO There should be an explanation as to how  the drive train circumference is measured.
 // This is most likely the circumference of the robot as it pivots on one wheel. This would
 // mean, at least for Kongo, the wheel base diameter X pi This should also state units.
 	public static final double DRIVETRAIN_CIRCUMFERENCE = 18.84; // TODO EAP Change for Kongo
-	public static final double CONTROLLER_DEADZONE = 0.1;
+	// EAP TODO Delete if never used.
+	//public static final double CONTROLLER_DEADZONE = 0.1;
 	
 //  Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
 	// TODO EAP these parameters up to MAX_JERK need to be adjusted for Kongo
 	//EAP 4 Dec 18 convert feet top meters for Kongo
-	// Old code public static final double WHEELBASE_WIDTH = 1.375;//2.25; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
     public static final double WHEELBASE_WIDTH = 0.4191; // in meters
-	// EAP TODO temp public static final double MAX_VELOCITY = 2; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
-	// EAP 4 Dec 18 convert to meters
-	//public static final double MAX_VELOCITY = 4.0; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
 	public static final double MAX_VELOCITY = 1.2192;// meters/sec
-	// EAP 4 Dec 18 convert to meters 
-	//public static final double MAX_ACCELERATION = 1; // ft/s/s: 6 for Delta
-	public static final double MAX_ACCELERATION = 0.3048; // ft/s/s: 6 for Delta
-	// EAP 4 Dec 18 convert to meters.
-	//public static final double MAX_JERK = 60; // ft/s/s/s
+	public static final double MAX_ACCELERATION = 0.3048; // meters/s/s:
 	public static final double MAX_JERK = 18.288; // meters/s/s/s 
 
 	// EAP note right side is 
@@ -99,11 +94,6 @@ public class RobotMap {
 	public static final double RIGHT_JOYSTICK_REDUCTION = 0.25;
 	public static final double LEFT_JOYSTICK_REDUCTION = 0.25;
 
-	
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
 	
 	// Settings for motor controllers
 	public static final int DRIVETRAIN_PEAK_CURRENT = 40;
@@ -130,28 +120,27 @@ public class RobotMap {
 	// TODO EAP verify units for all the below
 	public static Double MAX_SPEED = 3000.0;
 	// Set motion cruise velocity in RPM must be an int
-	public static Double MOTION_CRUISE_VELOCITY = MAX_SPEED * 0.5;
+	public static Double MOTION_CRUISE_VELOCITY = MAX_SPEED * 0.1;
 	// In Arcade mode we may need to swap the direction of zRotation
 	// if the robot spins opposite the joystick x direction
 	public static final boolean INVERT_ZROTATION = true;
-	
+
+	// EAP I use this to block user input whenever I triger a command from the 
+	// smartdashboard
 	public static boolean BLOCK_JOYSTICK_INPUT = false;
 	
 	// Used for MotionProfileOnboardRunner
 	// TODO EAP All these parameters need adjusting for Kongo
-		public static final double WHEEL_DIAMETER = 6; //inches: 5 for Delta, 6 for Kongo, 3.5 for Janderson
+		public static final double WHEEL_DIAMETER = 0.1524; //6 inches meters 
 		public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
-		public static final int UNITS_PER_REVOLUTION = (int)((RobotMap.UNITS_PER_10_FEET / 10.0 * (WHEEL_CIRCUMFERENCE / 12.0)) * 1.0); //encoder ticks: 7659 for Delta, 8192 for Kongo, 3700 for Janderson
-		public static final double UNITS_PER_10_ROBOT_REVOLUTIONS = 410000; // 410000 for Delta, 274700 for Janderson (currently unused), using WHEELBASE_WIDTH instead
-		public static final double UNITS_PER_10_FEET = 59500; // 59500 for Delta, 40500 for Janderson
-		// EAP Changed to my calculations and measurements on kongo
-		public static final double MAX_UNITS_PER_100MS = 6840; // 9900 for Delta, 4011 for Janderson, 6450 for Kongo EAP Kogo 6840
-		//public static final double MAX_UNITS_PER_100MS = 2500 * 1.505; // 9900 for Delta, 4011 for Janderson, 6450 for Kongo
+		// EAP the encoders on Kongo are set for 2048 ppr. When we select quad 
+		// encoder mode we get 2048*4 or 8192 units per revolution
+		public static final int UNITS_PER_REVOLUTION = 8192;
+		// EAP This is measured using the web interface see sec 6.1 ot the Talon MP reference manual 
+		public static final double MAX_UNITS_PER_100MS = 6840;
+		//EP Some of these are not used right now. These are not limits.
 		public static final double MAX_UNITS_PER_SECOND = MAX_UNITS_PER_100MS * 10;
 		public static final double MAX_REVOLUTIONS_PER_SECOND = MAX_UNITS_PER_SECOND / UNITS_PER_REVOLUTION;
-		public static final double MAX_INCHES_PER_SECOND = MAX_REVOLUTIONS_PER_SECOND * WHEEL_DIAMETER * Math.PI;
-		public static final double MAX_FEET_PER_SECOND = MAX_INCHES_PER_SECOND / 12;
+		public static final double MAX_METERS_PER_SECOND = WHEEL_CIRCUMFERENCE * MAX_REVOLUTIONS_PER_SECOND;
 		
-		public static final double ONBOARD_ENCODER_MULTIPLIER = 1;
-	
 }
