@@ -77,7 +77,7 @@ public class RobotMap {
 //  Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
 	// TODO EAP these parameters up to MAX_JERK need to be adjusted for Kongo
-	//EAP 4 Dec 18 convert feet top meters for Kongo
+	//EAP all in meters for Kongo
     public static final double WHEELBASE_WIDTH = 0.4191; // in meters
 	public static final double MAX_VELOCITY = 1.2192;// meters/sec
 	public static final double MAX_ACCELERATION = 0.3048; // meters/s/s:
@@ -131,7 +131,7 @@ public class RobotMap {
 	
 	// Used for MotionProfileOnboardRunner
 	// TODO EAP All these parameters need adjusting for Kongo
-		public static final double WHEEL_DIAMETER = 0.1524; //6 inches meters 
+		public static final double WHEEL_DIAMETER = 0.1524;// in meters 
 		public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 		// EAP the encoders on Kongo are set for 2048 ppr. When we select quad 
 		// encoder mode we get 2048*4 or 8192 units per revolution

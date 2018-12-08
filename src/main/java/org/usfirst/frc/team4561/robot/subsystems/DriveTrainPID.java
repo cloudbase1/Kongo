@@ -28,14 +28,12 @@ public class DriveTrainPID extends Subsystem {
 	double leftSpeed;
 	double rightSpeed;
 	// Conversions from encoder ticks to speed and distance
-	// EAP calculations for Kongo ~ 6 inch wheels and 2048 PPR encoder
+	// EAP calculations for Kongo ~ 6 inch wheels (0.1524 meters)and 2048 PPR encoder
 	// 5.944 inches * 3.14 = 18.664 inches
+	// 18.664 inches = 0.474 meters
 	// With 2048 PPR encoder in quad mode this is 8192 codes per rev
-	// this gives 8192/18.664 = 438.91 ticks per inch for Kongo 
-	public static final double kInchesToTicks = 438.91;
-	public static final double kFeetToTicks = kInchesToTicks*12;
-	public static final double kInchesToTicksSpeed = kInchesToTicks/10;
-	public static final double kFeetToTicksSpeed = kFeetToTicks/10;
+	// this gives 8192/0.474 = 17282 ticks per meter for Kongo 
+	public static final double kTicksPerMeter = 17282;
 		
 	public DriveTrainPID() {
 			
@@ -237,9 +235,6 @@ public class DriveTrainPID extends Subsystem {
 	public double avgSpeed(){
 		return (getLeftSpeed()+(getRightSpeed()))/2;
 	}
-	public double ticksToInches(double inches){
-		return inches*kInchesToTicks;
-	}
 	public double lThrottle(){
 		return left.getMotorOutputPercent();
 	}
@@ -248,11 +243,11 @@ public class DriveTrainPID extends Subsystem {
 		return right.getMotorOutputPercent();
 	}
 	
-	public void magicDrive (double lInches, double rInches){
-		// EAP Convert inches to Ticks based on based on number of 
+	public void magicDrive (double lMeters, double rMeters){
+		// EAP Convert meters to Ticks based on based on number of 
 		// encoder ticks per inch.
-		double leftRot = -1*kInchesToTicks*lInches;
-		double rightRot = -1*kInchesToTicks*rInches;
+		double leftRot = -1*kTicksPerMeter*lMeters;
+		double rightRot = -1*kTicksPerMeter*rMeters;
 		//System.out.println(leftRot+" "+rightRot);
 		//System.out.println("Entering Motion Magic mode");
 
@@ -280,7 +275,7 @@ public class DriveTrainPID extends Subsystem {
 	}
 	// EAP Use turn to angle from 2018 code
 	// Try this first but I would like to try DriveMagic
-	// I could calculate wheel size and arc inches needed to turn X degrees
+	// I could calculate wheel size and arc meters needed to turn X degrees
 	// Just and idea.
 	public double goToAngle(double target){
 		System.out.println("Turning to " + target);

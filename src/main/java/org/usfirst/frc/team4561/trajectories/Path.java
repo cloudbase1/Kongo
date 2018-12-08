@@ -25,7 +25,7 @@ public class Path {
 	
     public void generateTrajectoriesAndArrays() {
     	trajectory = Pathfinder.generate(points, config);
-		// Wheelbase Width (feet)
+		// Wheelbase Width (meters)
 		// EAP 3 Dec 18 I don't see this being used t all comment out
     	// EAP double wheelbaseWidth = RobotMap.UNITS_PER_10_ROBOT_REVOLUTIONS / 10.0;
     	// EAP wheelbaseWidth /= Math.PI; // Diameter in units

@@ -119,7 +119,7 @@ public class OI {
 	 */
 	public static double units2meters(double units) {
 		units /= RobotMap.UNITS_PER_REVOLUTION; // revolutions
-		units *= RobotMap.WHEEL_DIAMETER * Math.PI; // inches
+		units *= RobotMap.WHEEL_DIAMETER * Math.PI; // meters
 		return units;
 	}
 	
