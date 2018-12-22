@@ -26,11 +26,10 @@ public class RunTrajectory extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
-    	System.out.println("********************************************* ");
-    	System.out.println("Starting trajectory: " + trajectory.toString());
-    	System.out.println("********************************************* ");
     	Robot.motionProfileRunner.setCurrentTrajectory(trajectory);
 		SetValueMotionProfile setOutput = Robot.motionProfileRunner.getSetValue();
+    	System.out.println("RunTrajectory: Initialize() trajectory: " + trajectory.toString());
+    	System.out.println("RunTrajectory: Initialize() SetOutput: " + setOutput.toString());
 		Robot.driveTrain.left.set(ControlMode.MotionProfile, setOutput.value);
 		Robot.driveTrain.right.set(ControlMode.MotionProfile, setOutput.value);
 		Robot.motionProfileRunner.startMotionProfile();
@@ -41,23 +40,20 @@ public class RunTrajectory extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 		SetValueMotionProfile setOutput = Robot.motionProfileRunner.getSetValue();
+    	System.out.println("RunTrajectory: Execute() SetOutput: " + setOutput.toString());
 		Robot.driveTrain.left.set(ControlMode.MotionProfile, setOutput.value);
 		Robot.driveTrain.right.set(ControlMode.MotionProfile, setOutput.value);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	System.out.println("********************************************* ");
-    	System.out.println("Checking isFinished for trajectory: " + trajectory.toString());
-    	System.out.println("********************************************* ");
+    	System.out.println("RunTrajectory: Checking isFinished for trajectory: " + trajectory.toString());
         return Robot.motionProfileRunner.getSetValue() == SetValueMotionProfile.Disable && isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println("********************************************* ");
-    	System.out.println("Ending trajectory: " + trajectory.toString());
-    	System.out.println("********************************************* ");
+    	System.out.println("RunTrajectory: Ending trajectory: " + trajectory.toString());
     	Robot.motionProfileRunner.reset();
     	Robot.driveTrain.resetEncoders();
     }

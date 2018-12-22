@@ -28,7 +28,7 @@ public class DriveTrainPID extends Subsystem {
 	double leftSpeed;
 	double rightSpeed;
 	// Conversions from encoder ticks to speed and distance
-	// EAP calculations for Kongo ~ 6 inch wheels (0.1524 meters)and 2048 PPR encoder
+	// calculations for Kongo ~ 6 inch wheels (0.1524 meters)and 2048 PPR encoder
 	// 5.944 inches * 3.14 = 18.664 inches
 	// 18.664 inches = 0.474 meters
 	// With 2048 PPR encoder in quad mode this is 8192 codes per rev
@@ -60,7 +60,7 @@ public class DriveTrainPID extends Subsystem {
 		right.config_IntegralZone(0, RobotMap.DRIVETRAIN_IZONE, 0);
 		right.configMotionCruiseVelocity(RobotMap.MOTION_CRUISE_VELOCITY.intValue(), 0);
 		rightSpeed = 0.225;
-		right.configMotionAcceleration(3000, 0);
+		right.configMotionAcceleration(3500, 0);
 		right.configNominalOutputForward(0, 0);
 		right.configNominalOutputReverse(0, 0);
 		right.configPeakOutputForward(1, 0);
@@ -169,7 +169,7 @@ public class DriveTrainPID extends Subsystem {
 		// so really only need 1 so just call DribveTrainPID as DriveTain since
 		// it does both PID and non-PID.
 		if (RobotMap.DRIVETRAIN_PID){ 
-			//System.out.println(right.getSensorCollection());
+		System.out.println(right.getSensorCollection());
 		// EAP Added blocking joystick input while a command is being sent 
 		// during teleop. This is to allow sending comands from the smart dashboard
 		// I would like to find a more integrated way to do this rather than brute force
@@ -184,26 +184,24 @@ public class DriveTrainPID extends Subsystem {
 			left.set(velocity, RobotMap.MAX_SPEED * leftMotorOutput);
 			}
 		
-			//System.out.print("Right Speed ");
-			//System.out.println(RobotMap.MAX_SPEED * rightMotorOutput);
-			//System.out.print("Left Speed ");
-			//System.out.println(RobotMap.MAX_SPEED * leftMotorOutput);
+			System.out.print("Right Speed ");
+			System.out.println(RobotMap.MAX_SPEED * rightMotorOutput);
+			System.out.print("Left Speed ");
+			System.out.println(RobotMap.MAX_SPEED * leftMotorOutput);
 		
 		}
 		else{
 			right.set(ControlMode.PercentOutput, rightMotorOutput);
 			left.set(ControlMode.PercentOutput, leftMotorOutput);
-			//System.out.print(rightMotorOutput);
-			//System.out.println(" ");
-			//System.out.println(leftMotorOutput);
+			System.out.print(rightMotorOutput);
+			System.out.println(" ");
+			System.out.println(leftMotorOutput);
 		}
 	}
       }
 	
 	
 	public void limit() {
-		// TODO EAP Peak current should not be a constant but have a 
-		// variable set in RobotMap
 		right.configPeakCurrentLimit(RobotMap.DRIVETRAIN_PEAK_CURRENT, 0);
 		left.configPeakCurrentLimit(RobotMap.DRIVETRAIN_PEAK_CURRENT, 0);
 		right.enableCurrentLimit(true);
@@ -248,14 +246,14 @@ public class DriveTrainPID extends Subsystem {
 		// encoder ticks per inch.
 		double leftRot = -1*kTicksPerMeter*lMeters;
 		double rightRot = -1*kTicksPerMeter*rMeters;
-		//System.out.println(leftRot+" "+rightRot);
-		//System.out.println("Entering Motion Magic mode");
+		System.out.println(leftRot+" "+rightRot);
+		System.out.println("Entering Motion Magic mode");
 
 		left.set(ControlMode.MotionMagic, leftRot);
-		//System.out.println("Entering Motion Magic mode left");
+		System.out.println("Entering Motion Magic mode left");
 
 		right.set(ControlMode.MotionMagic, rightRot);
-		//System.out.println("Entering Motion Magic mode right");
+		System.out.println("Entering Motion Magic mode right");
 
 		goalL = leftRot;
 		System.out.print("Goal Left = ");
@@ -266,7 +264,6 @@ public class DriveTrainPID extends Subsystem {
 		System.out.print("Goal Right = ");
 		System.out.println(rightRot);
 		System.out.println("Exit Motion Magic mode");
-		//resetGyro();	
 	}
 		
 	public void setToPosition(){

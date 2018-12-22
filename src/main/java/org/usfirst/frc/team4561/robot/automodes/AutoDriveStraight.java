@@ -12,12 +12,10 @@ import org.usfirst.frc.team4561.robot.commands.DriveMagic;
  * 
  */
 public class AutoDriveStraight extends CommandGroup {
-	// TODO EAP MAke this an input for the desire distance rather than delay.
-	// Make is a numerical input in meters rather than a slider.
 	//double delay = Robot.oi.getDashboardDSlider();
 	
 	public AutoDriveStraight() {
-		// EAP DriveMagic uses meters as input for left and right motors
+		// DriveMagic uses meters as input for left and right motors
 		// DriveMagic(leftMeters,RightMeters);
 		addSequential(new DriveMagic(1, 1));
 		

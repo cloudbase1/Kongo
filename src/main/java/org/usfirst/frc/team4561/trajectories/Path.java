@@ -25,12 +25,7 @@ public class Path {
 	
     public void generateTrajectoriesAndArrays() {
     	trajectory = Pathfinder.generate(points, config);
-		// Wheelbase Width (meters)
-		// EAP 3 Dec 18 I don't see this being used t all comment out
-    	// EAP double wheelbaseWidth = RobotMap.UNITS_PER_10_ROBOT_REVOLUTIONS / 10.0;
-    	// EAP wheelbaseWidth /= Math.PI; // Diameter in units
-    	// EAP wheelbaseWidth = OI.units2Ft(wheelbaseWidth);
-    	modifier = new TankModifier(trajectory).modify(wheelbase); // 1.865 (1.375 for kongo)
+    	modifier = new TankModifier(trajectory).modify(wheelbase); 
     	// Do something with the new Trajectories...
     	left = modifier.getLeftTrajectory();
     	right = modifier.getRightTrajectory();
@@ -39,14 +34,12 @@ public class Path {
     		Trajectory.Segment seg = left.get(i);
     		double[] point = {seg.position, seg.velocity, seg.dt};
 			leftArray[i] = point;
-			System.out.println("EAP left seg.velocity = " + seg.velocity );
     	}
     	rightArray = new double[right.length()][2];
     	for (int i = 0; i < right.length(); i++) {
     		Trajectory.Segment seg = right.get(i);
     		double[] point = {seg.position, seg.velocity, seg.dt};
     		rightArray[i] = point;
-			System.out.println("EAP right seg.velocity = " + seg.velocity );
     	}
     }
     

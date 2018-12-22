@@ -44,7 +44,7 @@ import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
  *
  */
 public class MotionProfileRunner {
-	// EAP List all the trajectories possible 
+	// List all the trajectories possible 
 	public static Path testTrajectory = new TestTrajectory();
 	
 	
@@ -109,6 +109,8 @@ public class MotionProfileRunner {
 	 */
 	public void setCurrentTrajectory(TrajectorySelect traj) {
 		currentTrajectory = traj;
+    	System.out.println("MPR: setCurrentTrajectory() trajectory: " + traj.toString());
+
 	}
 	/**
 	 * Gets the trajectory that the robot is ready to run next.
@@ -402,15 +404,14 @@ public class MotionProfileRunner {
 		
 		/* This is fast since it's just into our TOP buffer */
 		for (int i = 0; i < totalCnt; ++i) {
-			double leftPositionRaw = leftProfile[i][0]; // ft
-			double leftVelocityRaw = leftProfile[i][1]; // ft/sec
+			double leftPositionRaw = leftProfile[i][0]; 
+			double leftVelocityRaw = leftProfile[i][1];
 
 			/* for each point, fill our structure and pass it to API */
-			//EAP Convert himan units to talon native units
+			//Convert human units to talon native units
+			// TOOD this needs checking for accuracy
 			leftPoint.position = OI.meter2Units(leftPositionRaw);
 		    leftPoint.velocity = OI.mps2UnitsPerRev(leftVelocityRaw);
-			//EAP Dump velocity point
-			System.out.println("EAP TestTrajectory:velocity = " + leftPoint.velocity); 
 			// SNEAKY PHOENIX CRAP:
 			// This TrajectoryDuration is only allowed to be 0, 5, 10, 20, 30, 40, 50, or 100.
 			// Any other value will return 100.
@@ -427,10 +428,11 @@ public class MotionProfileRunner {
 				leftPoint.isLastPoint = false;
 			}
 			
-			double rightPositionRaw = rightProfile[i][0]; // ft
-			double rightVelocityRaw = rightProfile[i][1]; // ft/sec
+			double rightPositionRaw = rightProfile[i][0];
+			double rightVelocityRaw = rightProfile[i][1]; 
 			/* for each point, fill our structure and pass it to API */
-			//EAP Convert human units to talon native units 
+			//Convert human units to talon native units 
+			// TOOD this needs checking for accuracy
 			rightPoint.position = OI.meter2Units(rightPositionRaw);
 			rightPoint.velocity = OI.mps2UnitsPerRev(rightVelocityRaw);
 			

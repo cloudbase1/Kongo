@@ -5,9 +5,8 @@ import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ArcadeDrive extends Command {
-	/* EAP This command connects the joystick inputs pointed to in the oi file     */
-	/* with the drivetrain in the main robot class.                                */
-	
+	/* This command connects the joystick inputs pointed to in the oi file     */
+	/* with the drivetrain in the main robot class.   */ 
 	public ArcadeDrive() {
 		requires(Robot.driveTrain);
 	}

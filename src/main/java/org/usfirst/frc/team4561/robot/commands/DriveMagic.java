@@ -33,8 +33,6 @@ public class DriveMagic extends Command {
 	protected void execute(){
 		RobotMap.BLOCK_JOYSTICK_INPUT = true;
 		Robot.driveTrain.magicDrive(left, right);
-		//System.out.println("Running");
-			
 			
 		SmartDashboard.putNumber("Left Speed", Robot.driveTrain.getLeftSpeed());
 		SmartDashboard.putNumber("Right Speed", Robot.driveTrain.getRightSpeed());

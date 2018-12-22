@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-/* EAP For Kongo we assume where there is one joystick we are using all left */
-/* joystick variables and left is ignored.                                    */
+/* For Kongo we assume where there is one joystick we are using all left */
+/* joystick variables and right is ignored.                                    */
 public class OI {
 	private static Joystick leftStick = new Joystick (RobotMap.LEFT_JOYSTICK_PORT);
 	private static Joystick rightStick = new Joystick (RobotMap.RIGHT_JOYSTICK_PORT);
@@ -93,7 +93,7 @@ public class OI {
     }
 
 
-/// TODO EAP Is OI the proper place for these functions? Copies from 2018 OI
+/// TODO Is OI the proper place for these functions? Copies from 2018 OI
 	/**
 	 * Converts meters to encoder units.
 	 * So the users enters meters and gets back the number of 
@@ -104,7 +104,7 @@ public class OI {
 	 * @return encoder units
 	 */
 	public static double meter2Units(double meter) {
-		meter /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions
+		meter /= RobotMap.WHEEL_CIRCUMFERENCE; // revolutions
 		meter *= RobotMap.UNITS_PER_REVOLUTION; // Units
 		return meter;
 	}
@@ -119,7 +119,7 @@ public class OI {
 	 */
 	public static double units2meters(double units) {
 		units /= RobotMap.UNITS_PER_REVOLUTION; // revolutions
-		units *= RobotMap.WHEEL_DIAMETER * Math.PI; // meters
+		units *= RobotMap.WHEEL_CIRCUMFERENCE;
 		return units;
 	}
 	
@@ -131,7 +131,7 @@ public class OI {
 	 */
 	public static double mps2UnitsPerRev(double mps) {
 		mps /= 10; // meters/100ms
-		mps /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions/100ms
+		mps /= RobotMap.WHEEL_CIRCUMFERENCE; // revolutions/100ms
 		mps *= RobotMap.UNITS_PER_REVOLUTION; // Units/100ms
 		return mps;
 	}
