@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4561.robot.commands;
 
+import java.io.BufferedWriter;
+
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,15 +27,14 @@ public class DriveMagic extends Command {
 	}
 	
 	protected void initialize(){
-		//Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
-		//Robot.driveTrain.magicDrive(left, right);
+		Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
 		Robot.driveTrain.resetEncoders();
+		
 
 	}
 	protected void execute(){
 		RobotMap.BLOCK_JOYSTICK_INPUT = true;
 		Robot.driveTrain.magicDrive(left, right);
-			
 		SmartDashboard.putNumber("Left Speed", Robot.driveTrain.getLeftSpeed());
 		SmartDashboard.putNumber("Right Speed", Robot.driveTrain.getRightSpeed());
 		SmartDashboard.putNumber("Left Pos", Robot.driveTrain.getLeftPos());
