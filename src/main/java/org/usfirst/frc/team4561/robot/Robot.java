@@ -141,7 +141,7 @@ public class Robot extends IterativeRobot {
 		driveTrain.resetEncoders();
 		motionProfileRunner.control();
 		//int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
-		// TODO Hard code auto for now
+		// TODO Hard code auto for now Maybe make this a field rather than a slider.
 		int auto = 2;
 		switch (auto){
 		case 0:
