@@ -25,7 +25,7 @@ package org.usfirst.frc.team4561.trajectories;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
+//import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -44,7 +44,7 @@ import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
  *
  */
 public class MotionProfileRunner {
-	// EAP List all the trajectories possible 
+	// List all the trajectories possible 
 	public static Path testTrajectory = new TestTrajectory();
 	
 	
@@ -109,6 +109,8 @@ public class MotionProfileRunner {
 	 */
 	public void setCurrentTrajectory(TrajectorySelect traj) {
 		currentTrajectory = traj;
+    	System.out.println("MPR: setCurrentTrajectory() trajectory: " + traj.toString());
+
 	}
 	/**
 	 * Gets the trajectory that the robot is ready to run next.
@@ -366,7 +368,7 @@ public class MotionProfileRunner {
 		/* pass to caller */
 		return retval;
 	}
-	/** Start filling the MPs to all of the involved Talons. */
+	/* Start filling the MPs to all of the involved Talons. */
 	private void startFilling() {
 		/* since this example only has one talon, just update that one */
 		startFilling(currentTrajectory.getLeftArray(), currentTrajectory.getRightArray(), currentTrajectory.getCount());
@@ -402,16 +404,14 @@ public class MotionProfileRunner {
 		
 		/* This is fast since it's just into our TOP buffer */
 		for (int i = 0; i < totalCnt; ++i) {
-			double leftPositionRaw = leftProfile[i][0]; // ft
-			double leftVelocityRaw = leftProfile[i][1]; // ft/sec
+			double leftPositionRaw = leftProfile[i][0]; 
+			double leftVelocityRaw = leftProfile[i][1];
 
 			/* for each point, fill our structure and pass it to API */
-			//EAP TODO Follow all velocity and check units. Convert using metric
-			leftPoint.position = OI.ft2Units(leftPositionRaw);
-		    leftPoint.velocity = OI.fps2UnitsPerRev(leftVelocityRaw);
-			//EAP Dump velocity point
-			System.out.println("EAP TestTrajectory:velocity = " + leftPoint.velocity);
-
+			//Convert human units to talon native units
+			// TOOD this needs checking for accuracy
+			leftPoint.position = OI.meter2Units(leftPositionRaw);
+		    leftPoint.velocity = OI.mps2UnitsPerRev(leftVelocityRaw);
 			// SNEAKY PHOENIX CRAP:
 			// This TrajectoryDuration is only allowed to be 0, 5, 10, 20, 30, 40, 50, or 100.
 			// Any other value will return 100.
@@ -428,12 +428,13 @@ public class MotionProfileRunner {
 				leftPoint.isLastPoint = false;
 			}
 			
-			double rightPositionRaw = rightProfile[i][0]; // ft
-			double rightVelocityRaw = rightProfile[i][1]; // ft/sec
+			double rightPositionRaw = rightProfile[i][0];
+			double rightVelocityRaw = rightProfile[i][1]; 
 			/* for each point, fill our structure and pass it to API */
-			//EAP TODO Follow all velocity and check units. Convert using metric
-			rightPoint.position = OI.ft2Units(rightPositionRaw);
-			rightPoint.velocity = OI.fps2UnitsPerRev(rightVelocityRaw);
+			//Convert human units to talon native units 
+			// TOOD this needs checking for accuracy
+			rightPoint.position = OI.meter2Units(rightPositionRaw);
+			rightPoint.velocity = OI.mps2UnitsPerRev(rightVelocityRaw);
 			
 			// SNEAKY PHOENIX CRAP:
 			// This TrajectoryDuration is only allowed to be 0, 5, 10, 20, 30, 40, 50, or 100.

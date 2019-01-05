@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 import org.usfirst.frc.team4561.robot.commands.*;
-import org.usfirst.frc.team4561.robot.*;
+//import org.usfirst.frc.team4561.robot.*;
 
 /**
  *
@@ -29,10 +29,10 @@ public class TurnRight90 extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	System.out.println("Posting TurnGyro 90");
+    	System.out.println("TurnRight90: Posting TurnGyro 90");
     	addSequential(new TurnGyro(-90));
     	// wait preassigned time
-    	System.out.println("Waiting one second");
+    	System.out.println("TurnRight90: Waiting one second");
     	addSequential(new WaitCommand(1));
     }
 }

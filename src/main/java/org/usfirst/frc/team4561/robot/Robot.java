@@ -4,10 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-/* EAP Kongo bases on 2018 */
-/* 29 Nov 18 Adding changes needed for MPR only 
-* We will not use MPOR yet
-*/
+/* Kongo 2018 */
 
 package org.usfirst.frc.team4561.robot;
 
@@ -24,7 +21,6 @@ import org.usfirst.frc.team4561.robot.commands.*;
 import org.usfirst.frc.team4561.robot.subsystems.*;
 import org.usfirst.frc.team4561.trajectories.TestTrajectory;
 import org.usfirst.frc.team4561.trajectories.Path;
-// EAP Gyro import Change when I have a SPI bus model.
 import org.usfirst.frc.team4561.robot.ADIS16448_IMU;
 
 import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
@@ -60,7 +56,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		//CameraServer.getInstance().startAutomaticCapture();
-		//SmartDashboard.putData("Drive Straight one foot", new AutoDriveStraight());
+		//SmartDashboard.putData("Drive Straight one meter", new AutoDriveStraight());
 		//SmartDashboard.putData("Gyro TurnRight90 ", new TurnRight90());
 		//SmartDashboard.putData("FirstMPAutoTest ", new FirstMPAutoTest());
 		
@@ -74,8 +70,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		driveTrain.stop();
-		// EAP The 2018 code only resets the MPOR but we may want to reset MPR here
-		//motionProfileRunner.reset();
+		motionProfileRunner.reset();
 	}
 
 	@Override
@@ -86,19 +81,22 @@ public class Robot extends IterativeRobot {
 
 	}
 		
-	public void robotPeriodic(){
+	 public void robotPeriodic(){
+		   // MPR control Needs to be called every cycle
+		   motionProfileRunner.control();
     	if (RobotMap.DRIVETRAIN_DEBUG ){
-		SmartDashboard.putNumber("Heartbeat <3 2", Math.random());
+		    SmartDashboard.putNumber("Heartbeat <3 ", Math.random());
 	    	SmartDashboard.putNumber("DriveTrain/Left Speed", Robot.driveTrain.getLeftSpeed());
 	    	SmartDashboard.putNumber("DriveTrain/Right Speed", Robot.driveTrain.getRightSpeed());
 	    	SmartDashboard.putNumber("DriveTrain/Left Position", Robot.driveTrain.getLeftPos());
 	    	SmartDashboard.putNumber("DriveTrain/Right Position", Robot.driveTrain.getRightPos());
-	    	SmartDashboard.putNumber("DriveTrain/Average Error", Robot.driveTrain.avgErr());
+	        SmartDashboard.putNumber("DriveTrain/Average Error", Robot.driveTrain.avgErr());
 	    	SmartDashboard.putNumber("DriveTrain/Average Speed", Robot.driveTrain.avgSpeed());
 	    	SmartDashboard.putNumber("Right Sensor Velocity", Robot.driveTrain.right.getSelectedSensorVelocity(0) * -1);
+	    	SmartDashboard.putNumber("Left Sensor Velocity", Robot.driveTrain.left.getSelectedSensorVelocity(0) * -1);
 	    	SmartDashboard.putString("DriveTrain Mode", Robot.driveTrain.getMode());
 	    	
-	    	// EAP Gyro module smart dashboard display
+	    	// Gyro module smart dashboard display
 	    	 SmartDashboard.putNumber("Gyro-X", gyro.getAngleX());
 	    	 SmartDashboard.putNumber("Gyro-Y", gyro.getAngleY());
 	    	 SmartDashboard.putNumber("Gyro-Z", gyro.getAngleZ());
@@ -113,12 +111,11 @@ public class Robot extends IterativeRobot {
 	    	    
 	    	 SmartDashboard.putNumber("Pressure: ", gyro.getBarometricPressure());
 	    	 SmartDashboard.putNumber("Temperature: ", gyro.getTemperature()); 
-
-		motionProfileRunner.control();
+     
    	}
 
     	
-	    	// EAP One of the features of commands is that it allows the program to be broken down into separate 
+	    	// One of the features of commands is that it allows the program to be broken down into separate 
 	    	// testable units. Each command can be run independently of any of the others. By writing commands 
 	    	// to the SmartDashboard, they will appear on the screen as buttons that, when pressed, 
 	    	// schedule the particular command. This allows any command to be tested individually by pressing 
@@ -140,51 +137,29 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		motionProfileRunner.control();
 		gyro.reset();
 		driveTrain.resetEncoders();
+		motionProfileRunner.control();
 		//int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
-		// TDB EAP Hard code auto for now
+		// TODO Hard code auto for now
 		int auto = 2;
 		switch (auto){
 		case 0:
-    	    System.out.println("AutonomousCommand is null");
+    	    System.out.println("Robot: AutonomousCommand is null");
 			autonomousCommand = null;
 			break;
 		case 1:
-    	    System.out.println("Selecting AutoDriveStraight");
+    	    System.out.println("Robot: Selecting AutoDriveStraight");
 			autonomousCommand = new AutoDriveStraight();
 			break;
 		case 2:
-    	    System.out.println("Selecting FirstMPAutoTest");
+    	    System.out.println("Robot: Selecting FirstMPAutoTest");
 			autonomousCommand = new FirstMPAutoTest();
 			break;
 		case 3:
-    	    System.out.println("Selecting TurnGyro 90");
+    	    System.out.println("Robot: Selecting TurnGyro 90");
 			autonomousCommand = new TurnRight90();
 			break;
-		case 4:
-			//autonomousCommand = new AutoLeftScaleProfiling();
-			break;
-		case 5:
-			//autonomousCommand = new AutoTwoSwitchCube();
-			break;
-		case 6:
-			//autonomousCommand = new AutoMidSwitchOnboardProfiling();
-			break;
-		case 7:
-			//autonomousCommand = new AutoLeftScaleOnboardProfiling();
-			break;
-		case 8:
-			//autonomousCommand = new AutoRightScaleOnboardProfiling();
-			break;
-		case 9:
-			//autonomousCommand = new AutoTestProfiling();
-			break;
-		case 10:
-			//autonomousCommand = new AutoTestOnboardProfiling();
-			break;
-
 		}
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
@@ -222,7 +197,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		motionProfileRunner.control();
 		
 	}
 

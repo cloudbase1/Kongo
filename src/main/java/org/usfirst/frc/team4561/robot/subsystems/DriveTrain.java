@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-/* EAP DriveTrain for Kongo_Ed. This is the most basic DriveTrain we use. It  */
+/* DriveTrain for Kongo_Ed. This is the most basic DriveTrain we use. It  */
 /* will have both arcade and tank drive. We start with arcade sine I have one */
 /* joystick. Kongo also only has two drive wheels.                            */
 
@@ -32,7 +32,7 @@ public class DriveTrain extends Subsystem {
 	
 	private DifferentialDrive robotDrive; 
 	/********************************************************************************/
-	/* EAP DriveTrain is a subsystem that connects the software to the motor ports */
+	/* DriveTrain is a subsystem that connects the software to the motor ports */
 	/* driveTrain is a non-PID subsystem and is simpler to use, but less accurate, */
 	/* than the PID subsystem. Only one can be used at a time.                     */
 	/********************************************************************************/
@@ -48,7 +48,7 @@ public class DriveTrain extends Subsystem {
 
 	}
 /********************************************************************************/
-/* EAP Both tankDrive and arcadeDrive are commands that take the joystick input */
+/* Both tankDrive and arcadeDrive are commands that take the joystick input */
 /* and translates it to motor power commands to the motor controllers.          */
 /********************************************************************************/
 	public void tankDrive(double leftPower, double rightPower) {
@@ -73,7 +73,7 @@ public class DriveTrain extends Subsystem {
 		left.setInverted(invert);
 	}
 
-	/* EAP The default command is needed to tell the subsystem what to do if there */
+	/* The default command is needed to tell the subsystem what to do if there */
 	/* is no input from the driver. We don't want random activity.                 */
 	/* In this case the as a default command we set the drive mode.                */
 	@SuppressWarnings("unused")
@@ -116,7 +116,7 @@ public class DriveTrain extends Subsystem {
 	    right.set(power * RobotMap.MAX_MOTOR_POWER);
 		
 	}
-	/* EAP This method provides a way to stop the drive in an emergency. */
+	/* This method provides a way to stop the drive in an emergency. */
 		public void stop() {
 			left.set(ControlMode.PercentOutput, 0);
 			right.set(ControlMode.PercentOutput, 0);
